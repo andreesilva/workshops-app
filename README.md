@@ -6,7 +6,7 @@ Criada em Nestjs
 
 Comandos
 
-1 - Clonar o repositório para a máquina local
-1 - docker-compose up --build    --- Rodar os containers
-2 - docker compose exec app bash  ---  Entrar no container da aplicação em Node.JS
-3 - npm run start:dev   ---  Iniciar a aplicação
+- Clonar o repositório para a máquina local
+- docker-compose up --build    --- Rodar os containers
+- docker compose exec app bash  ---  Entrar no container da aplicação em Node.JS
+- npm run start:dev   ---  Iniciar a aplicação
