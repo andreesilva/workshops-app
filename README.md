@@ -7,3 +7,4 @@ Criado com Flutter
 Comandos
 
 - Clonar o repositório para a máquina local
+- flutter run
