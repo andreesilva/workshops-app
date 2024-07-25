@@ -1,4 +1,6 @@
+import 'package:intl/intl.dart';
 import 'package:workshops_app/app/core/theme/colors.app.dart';
+import 'package:workshops_app/app/data/models/attendanceSheetCollaborator.dart';
 import 'package:workshops_app/app/modules/workshop/controller.dart';
 import 'package:workshops_app/app/routes/routes.dart';
 import 'package:workshops_app/app/widgets/button.dart';
@@ -61,115 +63,110 @@ class WorkshopPage extends GetView<WorkshopController> {
                     children: [
                       for (var donation in state!)
                         Card(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 17, horizontal: 0),
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            side: const BorderSide(
-                              color: Colors.grey,
-                              width: 0.5,
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 17, horizontal: 0),
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              side: const BorderSide(
+                                color: Colors.grey,
+                                width: 0.5,
+                              ),
                             ),
-                          ),
-                          elevation: 4,
-                          shadowColor: Colors.blueGrey,
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          alignment: Alignment.centerLeft,
-                                          child: const Padding(
-                                            padding: EdgeInsets.only(
-                                                top: 5, left: 20),
-                                            child: Text(
-                                              "Workshop ",
-                                              style: const TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: 'Roboto',
-                                                  color: Colors.black87),
+                            elevation: 4,
+                            shadowColor: Colors.blueGrey,
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.centerLeft,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 5, left: 20),
+                                              child: Text(
+                                                "Workshop: ${donation.name}",
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'Roboto',
+                                                    color: Colors.black87),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            TextButton(
-                                                onPressed: () => {
-                                                      Get.toNamed(
-                                                          Routes.workshop,
-                                                          parameters: {
-                                                            'id': donation.id
-                                                                .toString()
-                                                          })
-                                                    },
-                                                child: Text(
-                                                  donation.name,
-                                                  style: const TextStyle(
-                                                      fontSize: 15,
-                                                      fontFamily: 'Roboto',
-                                                      color: Colors.black87),
-                                                )),
-                                          ],
-                                        )
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        alignment: Alignment.centerLeft,
-                                        child: const Padding(
-                                          padding: EdgeInsets.only(
-                                              top: 5, left: 20, bottom: 5),
-                                          child: Text(
-                                            "Data de realização",
-                                            style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'Roboto',
-                                                color: Colors.black87),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.centerLeft,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 5, left: 20),
+                                              child: Text(
+                                                "Data de realização: ${DateFormat.yMd().format(donation.dateCompletion)}",
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'Roboto',
+                                                    color: Colors.black87),
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                width: 20,
-                                height: 20,
-                              ),
-                              Row(
-                                children: [
-                                  Column(
-                                    children: [
-                                      Container(
-                                        alignment: Alignment.centerLeft,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 5, left: 20),
-                                          child: Text(
-                                            donation.description,
-                                            style: const TextStyle(
-                                                fontSize: 14,
-                                                fontFamily: 'Roboto',
-                                                color: Colors.black87),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.centerLeft,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 5, left: 20),
+                                              child: Text(
+                                                "Descricão: ${donation.description}",
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'Roboto',
+                                                    color: Colors.black87),
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
+                                    ),
+                                  ],
+                                ),
+                                // for (var attendanceSheet
+                                //     in donation.attendanceSheet) ...[
+                                //   for (var attendanceSheetCollaborator
+                                //       in attendanceSheet
+                                //           .attendanceSheetCollaborators)
+                                //     ...[]
+                                // ]
+                              ],
+                            )),
                     ],
                   ),
                 ),
