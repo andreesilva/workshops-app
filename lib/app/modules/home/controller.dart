@@ -16,6 +16,7 @@ class HomeController extends GetxController
 
   final formKey = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
+  final formKey3 = GlobalKey<FormState>();
 
   var descriptionController = TextEditingController();
 
@@ -24,11 +25,6 @@ class HomeController extends GetxController
   var searchWorkshopData = TextEditingController();
 
   var flagSearchButton = 0.obs;
-
-  int litrageValue = 0;
-
-  final litrageId = RxnInt();
-  final cityId = RxnInt();
 
   var nameController = TextEditingController();
 
@@ -68,72 +64,5 @@ class HomeController extends GetxController
 
       searchWorkshopData.clear();
     }
-  }
-
-  void changeLiterage(int? literageIdSelected) {
-    litrageId.value = literageIdSelected;
-  }
-
-  void showAlertSuccess(QuickAlertType quickAlertType) {
-    QuickAlert.show(
-        barrierDismissible: false,
-        context: Get.context!,
-        title: "",
-        text: "Anúncio inativado com sucesso!",
-        confirmBtnText: "Ok",
-        type: quickAlertType,
-        onConfirmBtnTap: () => Get.offAllNamed(Routes.home));
-  }
-
-  void showAlertError(QuickAlertType quickAlertType) {
-    QuickAlert.show(
-        barrierDismissible: false,
-        context: Get.context!,
-        title: "",
-        text: "Não foi possível inativar o anúncio",
-        confirmBtnText: "Ok",
-        type: quickAlertType);
-  }
-
-  void showAlertActivateSuccess(QuickAlertType quickAlertType) {
-    QuickAlert.show(
-        barrierDismissible: false,
-        context: Get.context!,
-        title: "",
-        text: "Anúncio ativado com sucesso!",
-        confirmBtnText: "Ok",
-        type: quickAlertType,
-        onConfirmBtnTap: () => Get.offAllNamed(Routes.home));
-  }
-
-  void showAlertActivateError(QuickAlertType quickAlertType) {
-    QuickAlert.show(
-        barrierDismissible: false,
-        context: Get.context!,
-        title: "",
-        text: "Não foi possível ativar o anúncio",
-        confirmBtnText: "Ok",
-        type: quickAlertType);
-  }
-
-  void showAlertDeleteSuccess(QuickAlertType quickAlertType) {
-    QuickAlert.show(
-        barrierDismissible: false,
-        context: Get.context!,
-        title: "",
-        text: "Anúncio excluído com sucesso!",
-        confirmBtnText: "Ok",
-        type: quickAlertType,
-        onConfirmBtnTap: () => Get.offAllNamed(Routes.home));
-  }
-
-  void showAlertDeleteError(QuickAlertType quickAlertType) {
-    QuickAlert.show(
-        barrierDismissible: false,
-        context: Get.context!,
-        title: "",
-        text: "Não foi possível excluír o anúncio",
-        confirmBtnText: "Ok",
-        type: quickAlertType);
   }
 }

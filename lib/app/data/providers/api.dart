@@ -68,7 +68,7 @@ class Api extends GetConnect {
 
       var response = await _client.get(
           Uri.parse(
-              'http://127.0.0.1:3000/api/attendance-sheets?workshopNome=$searchaWorkshop'),
+              'http://10.0.0.230:3000/api/attendance-sheets?workshopNome=$searchaWorkshop'),
           headers: {'Content-Type': 'application/json'});
 
       for (var donation in jsonDecode(response.body)) {
@@ -83,15 +83,23 @@ class Api extends GetConnect {
     }
   }
 
-  Future<WorkshopModel> getWorkshop(int id) async {
+  Future<List<WorkshopModel>> getWorkshop(id) async {
     try {
-      final response = await http.get(
+      List<WorkshopModel> data = [];
+
+      var response = await _client.get(
           Uri.parse(
-              'http://127.0.0.1:3000/api/attendance-sheets?workshopNome='),
+              'http://10.0.0.230:3000/api/attendance-sheets/collaborator/$id'),
           headers: {'Content-Type': 'application/json'});
 
-      return WorkshopModel.fromJson(jsonDecode(response.body));
+      for (var donation in jsonDecode(response.body)) {
+        data.add(WorkshopModel.fromJson(donation));
+      }
+      print(response.statusCode);
+      print(response.body);
+      return data;
     } catch (e) {
+      print("hkhjhhkhjkhjkh");
       throw e.toString();
     }
   }

@@ -7,5 +7,8 @@ class WorkshopRepository {
 
   WorkshopRepository(this._api);
 
-  Future<WorkshopModel> getEnterprise(id) => _api.getWorkshop(id);
+  Future<List<WorkshopModel>> getWorkshop(id) => _api.getWorkshop(id);
+
+  Future<List<WorkshopModel>> getHome(searchaWorkshop) =>
+      _api.getHome(searchaWorkshop);
 }

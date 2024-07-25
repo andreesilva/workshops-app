@@ -11,8 +11,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WorkshopPage extends GetView<WorkshopController> {
-  const WorkshopPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -21,7 +19,7 @@ class WorkshopPage extends GetView<WorkshopController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(Get.arguments as String,
+        title: Text("",
             style: GoogleFonts.poppins(
               textStyle: const TextStyle(
                 color: ColorsApp.appTitle,
@@ -44,113 +42,141 @@ class WorkshopPage extends GetView<WorkshopController> {
       ),
       body: controller.obx(
         (state) => SingleChildScrollView(
-            padding:
-                const EdgeInsets.only(top: 40, right: 0, left: 0, bottom: 0),
-            child: Column(children: [
-              Card(
-                surfaceTintColor: Colors.white,
-                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                color: Colors.blueAccent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(3),
-                  side: const BorderSide(
-                    color: Colors.grey,
-                    width: 0.5,
+          padding: const EdgeInsets.all(20),
+          child: SizedBox(
+            child: Column(
+              children: [
+                const Text(
+                  "Detalhes do workshop",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Roboto',
+                      color: Colors.black87),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  padding: const EdgeInsets.all(0),
+                  child: Column(
+                    children: [
+                      for (var donation in state!)
+                        Card(
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 17, horizontal: 0),
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            side: const BorderSide(
+                              color: Colors.grey,
+                              width: 0.5,
+                            ),
+                          ),
+                          elevation: 4,
+                          shadowColor: Colors.blueGrey,
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: const Padding(
+                                            padding: EdgeInsets.only(
+                                                top: 5, left: 20),
+                                            child: Text(
+                                              "Workshop ",
+                                              style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'Roboto',
+                                                  color: Colors.black87),
+                                            ),
+                                          ),
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            TextButton(
+                                                onPressed: () => {
+                                                      Get.toNamed(
+                                                          Routes.workshop,
+                                                          parameters: {
+                                                            'id': donation.id
+                                                                .toString()
+                                                          })
+                                                    },
+                                                child: Text(
+                                                  donation.name,
+                                                  style: const TextStyle(
+                                                      fontSize: 15,
+                                                      fontFamily: 'Roboto',
+                                                      color: Colors.black87),
+                                                )),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Column(
+                                    children: [
+                                      Container(
+                                        alignment: Alignment.centerLeft,
+                                        child: const Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 5, left: 20, bottom: 5),
+                                          child: Text(
+                                            "Data de realização",
+                                            style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: 'Roboto',
+                                                color: Colors.black87),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 20,
+                                height: 20,
+                              ),
+                              Row(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Container(
+                                        alignment: Alignment.centerLeft,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 5, left: 20),
+                                          child: Text(
+                                            donation.description,
+                                            style: const TextStyle(
+                                                fontSize: 14,
+                                                fontFamily: 'Roboto',
+                                                color: Colors.black87),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
                   ),
                 ),
-                elevation: 4,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 5, left: 20, right: 20),
-                              child: Text(
-                                "",
-                                style: GoogleFonts.poppins(
-                                  textStyle: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: badges.Badge(
-                            badgeStyle: badges.BadgeStyle(
-                              badgeColor: Colors.green,
-                              shape: badges.BadgeShape.square,
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(0),
-                                  topLeft: Radius.circular(0),
-                                  bottomLeft: Radius.circular(3),
-                                  bottomRight: Radius.circular(0)),
-                            ),
-                            badgeContent: Text(
-                              "ATIVO",
-                              style: GoogleFonts.poppins(
-                                textStyle: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 5, left: 20, right: 20),
-                              child: Text(
-                                controller.state!.name!,
-                                overflow: TextOverflow.ellipsis,
-                                style: GoogleFonts.poppins(
-                                  textStyle: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          alignment: Alignment.topLeft,
-                          child: const Padding(
-                            padding: EdgeInsets.only(top: 10, left: 15),
-                            child:
-                                Icon(Icons.attach_money, color: Colors.green),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 175, top: 5),
-                    ),
-                  ],
-                ),
-              ),
-            ])),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

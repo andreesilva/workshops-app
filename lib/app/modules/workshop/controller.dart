@@ -1,11 +1,12 @@
+import 'package:workshops_app/app/core/theme/errors.dart';
 import 'package:workshops_app/app/data/models/workshop.dart';
 import 'package:workshops_app/app/modules/workshop/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class WorkshopController extends GetxController with StateMixin<WorkshopModel> {
+class WorkshopController extends GetxController
+    with StateMixin<List<WorkshopModel>> {
   final WorkshopRepository _repository;
 
   WorkshopController(this._repository);
@@ -27,12 +28,21 @@ class WorkshopController extends GetxController with StateMixin<WorkshopModel> {
   void onInit() {
     //loading(true);
 
-    //String cnpj = Get.parameters['id']!;
+    final id = int.parse(Get.parameters["id"]!);
+
     //int cnpj = int.parse(Get.parameters['id']!);
 
-    String? id = Get.parameters['id'];
-    print(id);
-    // _repository.getEnterprise(cnpj).then((data) {
+    _repository.getWorkshop(id).then((data) {
+      if (data.isEmpty) {
+        change([], status: RxStatus.empty());
+      } else {
+        change(data, status: RxStatus.success());
+      }
+    }, onError: (error) {
+      errors(error);
+    });
+
+    // _repository.getWorkshop(id).then((data) {
     //   change(data, status: RxStatus.success());
     // }, onError: (error) {
     //   print(error.toString());
