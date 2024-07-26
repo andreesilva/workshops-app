@@ -3,22 +3,26 @@ import 'package:workshops_app/app/data/models/attendanceSheetCollaborator.dart';
 class AttendanceSheetModel {
   int id;
   int workshopId;
-
-  List<AttendanceSheetCollaboratorModel>? attendanceSheetCollaborators;
+  DateTime createdAt;
+  DateTime updateAt;
+  List<AttendanceSheetCollaboratorModel>? attendanceSheetCollaborator;
 
   AttendanceSheetModel(
       {required this.id,
       required this.workshopId,
-      required this.attendanceSheetCollaborators});
+      required this.createdAt,
+      required this.updateAt,
+      required this.attendanceSheetCollaborator});
 
   factory AttendanceSheetModel.fromJson(Map<String, dynamic> json) =>
       AttendanceSheetModel(
         id: json['id'],
         workshopId: json['workshopId'],
-        attendanceSheetCollaborators: json['attendanceSheetCollaborators'] !=
-                null
+        createdAt: DateTime.parse(json['createAt']),
+        updateAt: DateTime.parse(json['updateAt']),
+        attendanceSheetCollaborator: json['attendanceSheetCollaborator'] != null
             ? List<AttendanceSheetCollaboratorModel>.from(
-                json['attendanceSheetCollaborators']
+                json['attendanceSheetCollaborator']
                     .map((x) => AttendanceSheetCollaboratorModel.fromJson(x)))
             : null,
       );

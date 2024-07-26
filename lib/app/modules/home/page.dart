@@ -12,11 +12,6 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Workshops',
-              style: TextStyle(
-                  fontSize: 17,
-                  fontFamily: 'Roboto',
-                  color: ColorsApp.appTitle)),
           backgroundColor: ColorsApp.appBackground,
           shape: const Border(
               bottom: BorderSide(color: ColorsApp.appBorder, width: 0.5)),
@@ -144,7 +139,7 @@ class HomePage extends GetView<HomeController> {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 6),
                         Padding(
                           padding: const EdgeInsets.all(0),
                           child: Row(
@@ -253,6 +248,7 @@ class HomePage extends GetView<HomeController> {
                             ],
                           ),
                         ),
+                        const SizedBox(height: 15),
                         Container(
                           padding: const EdgeInsets.all(0),
                           child: Column(
@@ -260,7 +256,7 @@ class HomePage extends GetView<HomeController> {
                               for (var donation in state!)
                                 Card(
                                   margin: const EdgeInsets.symmetric(
-                                      vertical: 17, horizontal: 0),
+                                      vertical: 6, horizontal: 0),
                                   color: Colors.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5),
@@ -271,23 +267,24 @@ class HomePage extends GetView<HomeController> {
                                   ),
                                   elevation: 4,
                                   shadowColor: Colors.blueGrey,
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Column(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Column(
                                               children: [
                                                 Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
                                                   child: const Padding(
                                                     padding: EdgeInsets.only(
-                                                        top: 5, left: 20),
+                                                        top: 15, left: 10),
                                                     child: Text(
                                                       "Workshop",
                                                       style: const TextStyle(
-                                                          fontSize: 18,
+                                                          fontSize: 16,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           fontFamily: 'Roboto',
@@ -296,11 +293,23 @@ class HomePage extends GetView<HomeController> {
                                                     ),
                                                   ),
                                                 ),
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    TextButton(
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 5,
+                                                        left: 10,
+                                                        bottom: 10),
+                                                    child: TextButton(
                                                         onPressed: () => {
                                                               Get.toNamed(
                                                                   Routes
@@ -321,80 +330,101 @@ class HomePage extends GetView<HomeController> {
                                                                   color: Colors
                                                                       .black87),
                                                         )),
-                                                  ],
-                                                )
+                                                  ),
+                                                ),
                                               ],
                                             ),
-                                          ),
-                                          Column(
-                                            children: [
-                                              Container(
-                                                alignment: Alignment.centerLeft,
-                                                child: const Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: 5,
-                                                      left: 20,
-                                                      bottom: 5),
-                                                  child: Text(
-                                                    "Data de realização",
-                                                    style: const TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontFamily: 'Roboto',
-                                                        color: Colors.black87),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  child: const Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 5, left: 10),
+                                                    child: Text(
+                                                      "Descricão",
+                                                      style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontFamily: 'Roboto',
+                                                          color:
+                                                              Colors.black87),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              Container(
-                                                alignment: Alignment.centerLeft,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 20),
-                                                  child: Text(
-                                                    DateFormat.yMd().format(
-                                                        donation
-                                                            .dateCompletion),
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        fontFamily: 'Roboto',
-                                                        color: Colors.black87),
+                                                Container(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 5, left: 20),
+                                                    child: Text(
+                                                      donation.description,
+                                                      style: const TextStyle(
+                                                          fontSize: 12,
+                                                          fontFamily: 'Roboto',
+                                                          color:
+                                                              Colors.black87),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        width: 20,
-                                        height: 20,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Container(
-                                                alignment: Alignment.centerLeft,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 5, left: 20),
-                                                  child: Text(
-                                                    donation.description,
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        fontFamily: 'Roboto',
-                                                        color: Colors.black87),
+                                              ],
+                                            ),
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: const Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 5,
+                                                        left: 10,
+                                                        right: 10,
+                                                        bottom: 5),
+                                                    child: Text(
+                                                      "Data de realização",
+                                                      style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontFamily: 'Roboto',
+                                                          color:
+                                                              Colors.black87),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                                Container(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: Text(
+                                                      DateFormat.yMd().format(
+                                                          donation
+                                                              .dateCompletion),
+                                                      style: const TextStyle(
+                                                          fontSize: 12,
+                                                          fontFamily: 'Roboto',
+                                                          color:
+                                                              Colors.black87),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                             ],

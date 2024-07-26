@@ -40,8 +40,6 @@ class HomeController extends GetxController
   }
 
   void listWorkshops(String? search) {
-    print(search);
-    //_repository.getMyDonationsPet(searchWorkshopName.text).then((data) {
     _repository.getHome(search).then((data) {
       if (data.isEmpty) {
         change([], status: RxStatus.empty());

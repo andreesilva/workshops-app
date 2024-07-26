@@ -26,11 +26,7 @@ class WorkshopController extends GetxController
 
   @override
   void onInit() {
-    //loading(true);
-
     final id = int.parse(Get.parameters["id"]!);
-
-    //int cnpj = int.parse(Get.parameters['id']!);
 
     _repository.getWorkshop(id).then((data) {
       if (data.isEmpty) {
@@ -41,21 +37,6 @@ class WorkshopController extends GetxController
     }, onError: (error) {
       errors(error);
     });
-
-    // _repository.getWorkshop(id).then((data) {
-    //   change(data, status: RxStatus.success());
-    // }, onError: (error) {
-    //   print(error.toString());
-    //   if ((error.toString() == "Couldn't resolve host name") ||
-    //       (error.toString() == 'Timeout was reached') ||
-    //       (error.toString() == 'Network is unreachable') ||
-    //       (error.toString() == "Failed host lookup: 'receitaws.com.br'")) {
-    //     Get.offAllNamed('/button_error_conection');
-    //   } else {
-    //     Get.offAllNamed('/button_return');
-    //   }
-    //   //loadingCircular.value = false;
-    // });
 
     super.onInit();
   }

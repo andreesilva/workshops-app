@@ -29,14 +29,6 @@ class WorkshopPage extends GetView<WorkshopController> {
               ),
             )),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Get.toNamed(Routes.home);
-            },
-            icon: const Icon(Icons.info_outline),
-          ),
-        ],
         surfaceTintColor: Colors.white,
         backgroundColor: ColorsApp.appBackground,
         shape: const Border(
@@ -86,7 +78,7 @@ class WorkshopPage extends GetView<WorkshopController> {
                                             alignment: Alignment.centerLeft,
                                             child: Padding(
                                               padding: EdgeInsets.only(
-                                                  top: 5, left: 20),
+                                                  top: 20, left: 20),
                                               child: Text(
                                                 "Workshop: ${donation.name}",
                                                 style: const TextStyle(
@@ -103,7 +95,7 @@ class WorkshopPage extends GetView<WorkshopController> {
                                   ],
                                 ),
                                 const SizedBox(
-                                  height: 5,
+                                  height: 15,
                                 ),
                                 Row(
                                   children: [
@@ -118,8 +110,7 @@ class WorkshopPage extends GetView<WorkshopController> {
                                               child: Text(
                                                 "Data de realização: ${DateFormat.yMd().format(donation.dateCompletion)}",
                                                 style: const TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
                                                     fontFamily: 'Roboto',
                                                     color: Colors.black87),
                                               ),
@@ -146,8 +137,7 @@ class WorkshopPage extends GetView<WorkshopController> {
                                               child: Text(
                                                 "Descricão: ${donation.description}",
                                                 style: const TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
                                                     fontFamily: 'Roboto',
                                                     color: Colors.black87),
                                               ),
@@ -158,13 +148,63 @@ class WorkshopPage extends GetView<WorkshopController> {
                                     ),
                                   ],
                                 ),
-                                // for (var attendanceSheet
-                                //     in donation.attendanceSheet) ...[
-                                //   for (var attendanceSheetCollaborator
-                                //       in attendanceSheet
-                                //           .attendanceSheetCollaborators)
-                                //     ...[]
-                                // ]
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.centerLeft,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 5, left: 20),
+                                              child: Text(
+                                                "Colaboradores:",
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontFamily: 'Roboto',
+                                                    color: Colors.black87),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                for (var attendanceSheet
+                                    in donation.attendanceSheet) ...[
+                                  for (var attendanceSheetCollaborator
+                                      in attendanceSheet
+                                          .attendanceSheetCollaborator!) ...[
+                                    const SizedBox(
+                                      height: 1,
+                                    ),
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.only(top: 5, left: 20),
+                                        child: Text(
+                                          "- ${attendanceSheetCollaborator.collaborator.name}",
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              fontFamily: 'Roboto',
+                                              color: Colors.black87),
+                                        ),
+                                      ),
+                                    ),
+                                  ]
+                                ],
+                                const SizedBox(
+                                  height: 20,
+                                ),
                               ],
                             )),
                     ],

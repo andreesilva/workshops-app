@@ -22,8 +22,8 @@ class AttendanceSheetCollaboratorModel {
         id: json['id'],
         attendanceSheetId: json['attendanceSheetId'],
         collaboratorId: json['collaboratorId'],
-        createdAt: DateTime.parse(json['createdAt']),
+        createdAt: DateTime.parse(json['createAt']),
         updateAt: DateTime.parse(json['updateAt']),
-        collaborator: json['collaborator'],
+        collaborator: CollaboratorModel.fromJson(json['collaborator']),
       );
 }
