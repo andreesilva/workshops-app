@@ -4,7 +4,8 @@ Criado com Flutter
 
 ## Para rodar o projeto:
 
-Comandos
+Para rodar o projeto
 
 - Clonar o repositório para a máquina local
-- flutter run
+- Rodar o comando: flutter pub get
+- Rodar o comando: flutter run
