@@ -6,6 +6,12 @@ class HomeRepository {
 
   HomeRepository(this._api);
 
-  Future<List<WorkshopModel>> getHome(searchaWorkshop) =>
-      _api.getHome(searchaWorkshop);
+  Future<List<WorkshopModel>> getWorkshopCollaborator(searchaWorkshop) =>
+      _api.getWorkshopCollaborator(searchaWorkshop);
+
+  Future<List<WorkshopModel>> getWorkshopName(searchaWorkshop) =>
+      _api.getWorkshopName(searchaWorkshop);
+
+  Future<List<WorkshopModel>> getWorkshopDate(searchaWorkshop) =>
+      _api.getWorkshopDate(searchaWorkshop);
 }

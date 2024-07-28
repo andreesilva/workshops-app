@@ -1,20 +1,27 @@
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:workshops_app/app/core/theme/colors.app.dart';
+import 'package:workshops_app/app/data/models/sprice_point.dart';
+import 'package:workshops_app/app/modules/home/bar_chart_widget.dart';
 import 'package:workshops_app/app/modules/home/controller.dart';
 import 'package:workshops_app/app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:workshops_app/app/widgets/button.dart';
+import 'package:workshops_app/app/widgets/buttonLogout.dart';
 
 class HomePage extends GetView<HomeController> {
+  final phoneMaskFormatter = MaskTextInputFormatter(mask: '##/##/####');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: ColorsApp.appBackground,
           shape: const Border(
-              bottom: BorderSide(color: ColorsApp.appBorder, width: 0.5)),
+            bottom: BorderSide(color: ColorsApp.appBorder, width: 0.5),
+          ),
         ),
         body: controller.obx(
             (state) => SingleChildScrollView(
@@ -22,6 +29,26 @@ class HomePage extends GetView<HomeController> {
                   child: SizedBox(
                     child: Column(
                       children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      controller.logout();
+                                    },
+                                    style: buttonLogout,
+                                    child: Text(
+                                      'Sair',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                         Text(
                           "Ata dos workshops",
                           style: const TextStyle(
@@ -41,13 +68,118 @@ class HomePage extends GetView<HomeController> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Form(
+                                      key: controller.formKey3,
+                                      child: Column(
+                                        children: [
+                                          Center(
+                                            child: TextFormField(
+                                              textAlign: TextAlign.center,
+                                              autofocus: false,
+                                              controller: controller
+                                                  .searchWorkshopCollaborator,
+                                              decoration: InputDecoration(
+                                                hintText:
+                                                    "Informe o nome do colaborador",
+                                                helperStyle:
+                                                    GoogleFonts.poppins(
+                                                  textStyle: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                                filled: true,
+                                                focusColor: Colors.black,
+                                                fillColor: Colors.white,
+                                                focusedErrorBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(3)),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(3)),
+                                                ),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(5)),
+                                                ),
+                                                errorBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(5)),
+                                                ),
+                                                labelStyle: GoogleFonts.poppins(
+                                                  textStyle: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                              validator: (String? value) {
+                                                if (value != null &&
+                                                    value.isEmpty) {
+                                                  return 'Favor preencher o campo';
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Column(
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      controller.flagSearchButton.value = 3;
+                                      controller.submitSearchCollaborator();
+                                    },
+                                    style: button,
+                                    child: Text(
+                                      'Buscar',
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Padding(
+                          padding: const EdgeInsets.all(0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                /*1*/
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Form(
                                       key: controller.formKey,
                                       child: Column(
                                         children: [
                                           Center(
                                             child: TextFormField(
-                                              keyboardType:
-                                                  TextInputType.number,
                                               textAlign: TextAlign.center,
                                               autofocus: false,
                                               controller:
@@ -127,7 +259,7 @@ class HomePage extends GetView<HomeController> {
                                   ElevatedButton(
                                     onPressed: () {
                                       controller.flagSearchButton.value = 1;
-                                      controller.submitSearch();
+                                      controller.submitSearchName();
                                     },
                                     style: button,
                                     child: Text(
@@ -216,6 +348,9 @@ class HomePage extends GetView<HomeController> {
                                                   ),
                                                 ),
                                               ),
+                                              inputFormatters: [
+                                                phoneMaskFormatter
+                                              ],
                                               validator: (String? value) {
                                                 if (value != null &&
                                                     value.isEmpty) {
@@ -235,8 +370,8 @@ class HomePage extends GetView<HomeController> {
                                 children: [
                                   ElevatedButton(
                                     onPressed: () {
-                                      controller.flagSearchButton.value = 1;
-                                      controller.submitSearch();
+                                      controller.flagSearchButton.value = 2;
+                                      controller.submitSearchDate();
                                     },
                                     style: button,
                                     child: Text(
@@ -301,38 +436,39 @@ class HomePage extends GetView<HomeController> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  child: Padding(
-                                                    padding: EdgeInsets.only(
-                                                        top: 5,
-                                                        left: 10,
-                                                        bottom: 10),
-                                                    child: TextButton(
-                                                        onPressed: () => {
-                                                              Get.toNamed(
-                                                                  Routes
-                                                                      .workshop,
-                                                                  parameters: {
-                                                                    'id': donation
-                                                                        .id
-                                                                        .toString()
-                                                                  })
-                                                            },
-                                                        child: Text(
-                                                          donation.name,
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 15,
-                                                                  fontFamily:
-                                                                      'Roboto',
-                                                                  color: Colors
-                                                                      .black87),
-                                                        )),
+                                            Expanded(
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    child: Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 5,
+                                                          left: 10,
+                                                          bottom: 10),
+                                                      child: TextButton(
+                                                          onPressed: () => {
+                                                                Get.toNamed(
+                                                                    Routes
+                                                                        .workshop,
+                                                                    parameters: {
+                                                                      'id': donation
+                                                                          .id
+                                                                          .toString()
+                                                                    })
+                                                              },
+                                                          child: Text(
+                                                            donation.name,
+                                                            style: const TextStyle(
+                                                                fontSize: 15,
+                                                                fontFamily:
+                                                                    'Arial Narrow',
+                                                                color: Colors
+                                                                    .grey),
+                                                          )),
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -340,86 +476,106 @@ class HomePage extends GetView<HomeController> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  child: const Padding(
-                                                    padding: EdgeInsets.only(
-                                                        top: 5, left: 10),
-                                                    child: Text(
-                                                      "Descricão",
-                                                      style: const TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontFamily: 'Roboto',
-                                                          color:
-                                                              Colors.black87),
+                                            Expanded(
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    child: const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 5, left: 10),
+                                                      child: Text(
+                                                        "Descricão",
+                                                        style: const TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontFamily:
+                                                                'Roboto',
+                                                            color:
+                                                                Colors.black87),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 5, left: 20),
-                                                    child: Text(
-                                                      donation.description,
-                                                      style: const TextStyle(
-                                                          fontSize: 12,
-                                                          fontFamily: 'Roboto',
-                                                          color:
-                                                              Colors.black87),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: const Padding(
-                                                    padding: EdgeInsets.only(
-                                                        top: 5,
-                                                        left: 10,
-                                                        right: 10,
-                                                        bottom: 5),
-                                                    child: Text(
-                                                      "Data de realização",
-                                                      style: const TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontFamily: 'Roboto',
-                                                          color:
-                                                              Colors.black87),
+                                            Expanded(
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    child: const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 5,
+                                                          left: 10,
+                                                          right: 10,
+                                                          bottom: 5),
+                                                      child: Text(
+                                                        "Data de realização",
+                                                        style: const TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontFamily:
+                                                                'Roboto',
+                                                            color:
+                                                                Colors.black87),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 20),
-                                                    child: Text(
-                                                      DateFormat.yMd().format(
-                                                          donation
-                                                              .dateCompletion),
-                                                      style: const TextStyle(
-                                                          fontSize: 12,
-                                                          fontFamily: 'Roboto',
-                                                          color:
-                                                              Colors.black87),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 5, left: 20),
+                                                      child: Text(
+                                                        donation.description,
+                                                        style: const TextStyle(
+                                                            fontSize: 12,
+                                                            fontFamily:
+                                                                'Roboto',
+                                                            color:
+                                                                Colors.black87),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 20),
+                                                      child: Text(
+                                                        donation.dateCompletion
+                                                            .replaceAll(
+                                                                '-', '/'),
+                                                        style: const TextStyle(
+                                                            fontSize: 12,
+                                                            fontFamily:
+                                                                'Roboto',
+                                                            color:
+                                                                Colors.black87),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -430,6 +586,10 @@ class HomePage extends GetView<HomeController> {
                             ],
                           ),
                         ),
+                        // Text(controller.nameCollaborator),
+                        // BarChartWidget(
+                        //     points: pricePoints,
+                        //     collaborator: controller.nameCollaborator),
                       ],
                     ),
                   ),
@@ -448,6 +608,107 @@ class HomePage extends GetView<HomeController> {
                             color: Colors.black87),
                       ),
                       const SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.all(0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              /*1*/
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Form(
+                                    key: controller.formKey3,
+                                    child: Column(
+                                      children: [
+                                        Center(
+                                          child: TextFormField(
+                                            keyboardType: TextInputType.number,
+                                            textAlign: TextAlign.center,
+                                            autofocus: false,
+                                            controller: controller
+                                                .searchWorkshopCollaborator,
+                                            decoration: InputDecoration(
+                                              hintText:
+                                                  "Informe o nome do colaborador",
+                                              helperStyle: GoogleFonts.poppins(
+                                                textStyle: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                              filled: true,
+                                              focusColor: Colors.black,
+                                              fillColor: Colors.white,
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 1,
+                                                    color: Colors.grey),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(3)),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 1,
+                                                    color: Colors.grey),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(3)),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 1,
+                                                    color: Colors.grey),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5)),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 1,
+                                                    color: Colors.grey),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5)),
+                                              ),
+                                              labelStyle: GoogleFonts.poppins(
+                                                textStyle: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ),
+                                            validator: (String? value) {
+                                              if (value != null &&
+                                                  value.isEmpty) {
+                                                return 'Favor preencher o campo';
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            Column(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    controller.flagSearchButton.value = 3;
+                                    controller.submitSearchCollaborator();
+                                  },
+                                  style: button,
+                                  child: Text(
+                                    'Buscar',
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.all(0),
                         child: Row(
@@ -536,7 +797,7 @@ class HomePage extends GetView<HomeController> {
                                 ElevatedButton(
                                   onPressed: () {
                                     controller.flagSearchButton.value = 1;
-                                    controller.submitSearch();
+                                    controller.submitSearchName();
                                   },
                                   style: button,
                                   child: Text(
@@ -637,7 +898,7 @@ class HomePage extends GetView<HomeController> {
                                 ElevatedButton(
                                   onPressed: () {
                                     controller.flagSearchButton.value = 1;
-                                    controller.submitSearch();
+                                    controller.submitSearchDate();
                                   },
                                   style: button,
                                   child: Text(

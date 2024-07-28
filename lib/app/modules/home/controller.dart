@@ -1,5 +1,6 @@
 import 'package:workshops_app/app/core/theme/errors.dart';
 import 'package:workshops_app/app/data/models/workshop.dart';
+import 'package:workshops_app/app/data/services/auth/service.dart';
 import 'package:workshops_app/app/modules/home/repository.dart';
 import 'package:workshops_app/app/routes/routes.dart';
 import 'package:workshops_app/app/widgets/message_general_error.dart';
@@ -14,6 +15,8 @@ class HomeController extends GetxController
 
   HomeController(this._repository);
 
+  final _authService = Get.find<AuthService>();
+
   final formKey = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
   final formKey3 = GlobalKey<FormState>();
@@ -24,9 +27,11 @@ class HomeController extends GetxController
 
   var searchWorkshopData = TextEditingController();
 
+  var searchWorkshopCollaborator = TextEditingController();
+
   var flagSearchButton = 0.obs;
 
-  var nameController = TextEditingController();
+  var nameCollaborator = '';
 
   @override
   void onInit() {
@@ -39,28 +44,75 @@ class HomeController extends GetxController
     super.onInit();
   }
 
-  void listWorkshops(String? search) {
-    _repository.getHome(search).then((data) {
-      if (data.isEmpty) {
-        change([], status: RxStatus.empty());
-      } else {
-        change(data, status: RxStatus.success());
-      }
-    }, onError: (error) {
-      errors(error);
-    });
+  void listWorkshops(
+    String? search,
+  ) {
+    if (flagSearchButton.value == 1) {
+      _repository.getWorkshopName(search).then((data) {
+        if (data.isEmpty) {
+          change([], status: RxStatus.empty());
+        } else {
+          change(data, status: RxStatus.success());
+        }
+      }, onError: (error) {
+        errors(error);
+      });
+    } else if (flagSearchButton.value == 2) {
+      _repository.getWorkshopDate(search).then((data) {
+        if (data.isEmpty) {
+          change([], status: RxStatus.empty());
+        } else {
+          change(data, status: RxStatus.success());
+        }
+      }, onError: (error) {
+        errors(error);
+      });
+    } else if (flagSearchButton.value == 3) {
+      _repository.getWorkshopCollaborator(search).then((data) {
+        if (data.isEmpty) {
+          change([], status: RxStatus.empty());
+        } else {
+          change(data, status: RxStatus.success());
+        }
+      }, onError: (error) {
+        errors(error);
+      });
+    } else {
+      _repository.getWorkshopName(search).then((data) {
+        if (data.isEmpty) {
+          change([], status: RxStatus.empty());
+        } else {
+          change(data, status: RxStatus.success());
+        }
+      }, onError: (error) {
+        errors(error);
+      });
+    }
   }
 
-  submitSearch() {
-    if (flagSearchButton.value == 1) {
-      listWorkshops(searchWorkshopName.text);
+  submitSearchCollaborator() {
+    listWorkshops(searchWorkshopCollaborator.text);
 
-      searchWorkshopName.clear();
-    }
-    if (flagSearchButton.value == 2) {
-      listWorkshops(searchWorkshopData.text);
+    nameCollaborator = searchWorkshopCollaborator.text;
 
-      searchWorkshopData.clear();
-    }
+    searchWorkshopCollaborator.clear();
+  }
+
+  submitSearchName() {
+    listWorkshops(searchWorkshopName.text);
+
+    searchWorkshopName.clear();
+  }
+
+  submitSearchDate() {
+    listWorkshops(searchWorkshopData.text.replaceAll('/', '-'));
+
+    searchWorkshopData.clear();
+  }
+
+  void logout() async {
+    await _authService.logout();
+
+    Get.offAllNamed(Routes.login);
   }
 }

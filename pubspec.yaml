@@ -57,6 +57,7 @@ dependencies:
   flutter_localization: ^0.2.0
   
   flutter_pw_validator: ^1.6.0
+  fl_chart: ^0.68.0
 
 dev_dependencies:
   flutter_test:

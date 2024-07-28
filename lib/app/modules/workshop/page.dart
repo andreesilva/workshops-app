@@ -108,7 +108,7 @@ class WorkshopPage extends GetView<WorkshopController> {
                                               padding: EdgeInsets.only(
                                                   top: 5, left: 20),
                                               child: Text(
-                                                "Data de realização: ${DateFormat.yMd().format(donation.dateCompletion)}",
+                                                "Data de realização: ${donation.dateCompletion}",
                                                 style: const TextStyle(
                                                     fontSize: 14,
                                                     fontFamily: 'Roboto',

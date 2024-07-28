@@ -1,5 +1,8 @@
 import 'package:workshops_app/app/core/theme/app_theme.dart';
 import 'package:workshops_app/app/data/providers/api.dart';
+import 'package:workshops_app/app/data/services/auth/repository.dart';
+import 'package:workshops_app/app/data/services/auth/service.dart';
+import 'package:workshops_app/app/data/services/storage/service.dart';
 
 import 'package:workshops_app/app/routes/pages.dart';
 import 'package:workshops_app/app/routes/routes.dart';
@@ -14,8 +17,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await GetStorage.init();
-
+  Get.put<StorageService>(StorageService());
   Get.put<Api>(Api());
+  Get.put<AuthService>(AuthService(AuthRepository(Get.find<Api>())));
 
   Intl.defaultLocale = "pt_BR";
 
@@ -25,7 +29,7 @@ void main() async {
 
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
-    initialRoute: Routes.home,
+    initialRoute: Routes.login,
     theme: themeData,
     getPages: AppPages.pages,
     localizationsDelegates: const [

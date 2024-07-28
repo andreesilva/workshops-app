@@ -5,7 +5,7 @@ import 'package:workshops_app/app/data/models/collaborator.dart';
 class WorkshopModel {
   int id;
   String name;
-  DateTime dateCompletion;
+  String dateCompletion;
   String description;
   DateTime createdAt;
   DateTime updateAt;
@@ -25,7 +25,7 @@ class WorkshopModel {
   factory WorkshopModel.fromJson(Map<String, dynamic> json) => WorkshopModel(
       id: json['id'],
       name: json['name'],
-      dateCompletion: DateTime.parse(json['dateCompletion']),
+      dateCompletion: json['dateCompletion'],
       description: json['description'],
       createdAt: DateTime.parse(json['createdAt']),
       updateAt: DateTime.parse(json['updateAt']),
