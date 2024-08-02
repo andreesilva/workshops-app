@@ -11,7 +11,6 @@ Future<void> errors(dynamic error) async {
       duration: Duration(seconds: 15),
     ));
   } else if (error.toString() == 'Connection refused') {
-    //change(null, status: RxStatus.error('Falha no servidor'));
     ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(const SnackBar(
       content: Text('Falha no servidor'),
       backgroundColor: Colors.red,
@@ -20,7 +19,5 @@ Future<void> errors(dynamic error) async {
     print(error.toString());
   } else {
     print(error.toString());
-
-    //change(null, status: RxStatus.error(error.toString()));
   }
 }

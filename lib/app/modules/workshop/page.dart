@@ -1,15 +1,10 @@
-import 'package:intl/intl.dart';
 import 'package:workshops_app/app/core/theme/colors.app.dart';
-import 'package:workshops_app/app/data/models/attendanceSheetCollaborator.dart';
 import 'package:workshops_app/app/modules/workshop/controller.dart';
 import 'package:workshops_app/app/routes/routes.dart';
 import 'package:workshops_app/app/widgets/button.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WorkshopPage extends GetView<WorkshopController> {

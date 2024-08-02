@@ -46,11 +46,9 @@ class AuthService extends GetxService {
 
   @override
   void onInit() async {
-    if (_storageService.token != null) {
-      //await _getUser();
+    if (_storageService.accessToken != null) {
+      await _getUser();
     }
-
-    //isInternetConnected().then((value) => value);
 
     super.onInit();
   }
@@ -58,9 +56,9 @@ class AuthService extends GetxService {
   Future<void> login(UserLoginRequestModel userLoginRequestModel) async {
     var userLoginResponse = await _repository.login(userLoginRequestModel);
     await _storageService.saveToken(userLoginResponse.token);
-    // await _getUser();
+    await _getUser();
 
-    print(userLoginResponse.token);
+    //print("token: " + userLoginResponse.token);
   }
 
   Future<void> logout() async {
@@ -68,9 +66,9 @@ class AuthService extends GetxService {
     user.value = null;
   }
 
-  // Future _getUser() {
-  //   return _repository.getUser().then((value) {
-  //     user.value = value;
-  //   });
-  // }
+  Future _getUser() {
+    return _repository.getUser().then((value) {
+      user.value = value;
+    });
+  }
 }

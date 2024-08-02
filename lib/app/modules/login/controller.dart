@@ -1,5 +1,9 @@
+import 'package:get_storage/get_storage.dart';
+import 'package:workshops_app/app/core/util/get_storage_key.dart';
 import 'package:workshops_app/app/data/models/user_login_request.dart';
+import 'package:workshops_app/app/data/services/auth/repository.dart';
 import 'package:workshops_app/app/data/services/auth/service.dart';
+import 'package:workshops_app/app/data/services/storage/service.dart';
 import 'package:workshops_app/app/routes/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +12,12 @@ import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class LoginController extends GetxController {
-  LoginController();
+  AuthRepository _repository;
+  LoginController(this._repository);
 
   final formKey = GlobalKey<FormState>();
+
+  final GetStorage _getStorage = GetStorage();
   final _authService = Get.find<AuthService>();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
@@ -40,7 +47,6 @@ class LoginController extends GetxController {
           duration: Duration(seconds: 15),
         ));
       } else if (error.toString() == 'Connection refused') {
-        //change(null, status: RxStatus.error('Falha no servidor'));
         ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(const SnackBar(
           content: Text('Falha no servidor'),
           backgroundColor: Colors.red,

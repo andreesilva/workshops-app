@@ -1,6 +1,9 @@
+import 'package:get_storage/get_storage.dart';
 import 'package:workshops_app/app/core/theme/errors.dart';
+import 'package:workshops_app/app/core/util/get_storage_key.dart';
 import 'package:workshops_app/app/data/models/workshop.dart';
 import 'package:workshops_app/app/data/services/auth/service.dart';
+import 'package:workshops_app/app/data/services/storage/service.dart';
 import 'package:workshops_app/app/modules/home/repository.dart';
 import 'package:workshops_app/app/routes/routes.dart';
 import 'package:workshops_app/app/widgets/message_general_error.dart';
@@ -15,6 +18,7 @@ class HomeController extends GetxController
 
   HomeController(this._repository);
 
+  final _storageService = Get.find<StorageService>();
   final _authService = Get.find<AuthService>();
 
   final formKey = GlobalKey<FormState>();
@@ -33,6 +37,8 @@ class HomeController extends GetxController
 
   var nameCollaborator = '';
 
+  bool get isLogged => _authService.isLogged;
+
   @override
   void onInit() {
     if (flagSearchButton.value == 0) {
@@ -44,9 +50,9 @@ class HomeController extends GetxController
     super.onInit();
   }
 
-  void listWorkshops(
+  Future<void> listWorkshops(
     String? search,
-  ) {
+  ) async {
     if (flagSearchButton.value == 1) {
       _repository.getWorkshopName(search).then((data) {
         if (data.isEmpty) {
@@ -111,7 +117,7 @@ class HomeController extends GetxController
   }
 
   void logout() async {
-    await _authService.logout();
+    _storageService.removeToken();
 
     Get.offAllNamed(Routes.login);
   }

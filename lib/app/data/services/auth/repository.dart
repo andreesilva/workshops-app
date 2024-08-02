@@ -11,6 +11,5 @@ class AuthRepository {
   Future<UserLoginResponseModel> login(
           UserLoginRequestModel userLoginRequestModel) =>
       _api.login(userLoginRequestModel);
-  //Future<UserModel> getUser() => _api.getUser();
-  // Future <ForgotPasswordResponseModel>forgotPassword(ForgotPasswordRequestModel forgotPasswordRequestModel) => _api.forgotPassword(userLoginRequestModel);
+  Future<UserModel> getUser() => _api.getUser();
 }

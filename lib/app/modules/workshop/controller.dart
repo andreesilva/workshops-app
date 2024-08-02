@@ -1,5 +1,7 @@
 import 'package:workshops_app/app/core/theme/errors.dart';
 import 'package:workshops_app/app/data/models/workshop.dart';
+import 'package:workshops_app/app/data/services/auth/service.dart';
+import 'package:workshops_app/app/data/services/storage/service.dart';
 import 'package:workshops_app/app/modules/workshop/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,18 +13,18 @@ class WorkshopController extends GetxController
 
   WorkshopController(this._repository);
 
+  final _storageService = Get.find<StorageService>();
+
+  final _authService = Get.find<AuthService>();
+
+  bool get isLogged => _authService.isLogged;
+
+  bool get isTokenExpired =>
+      _storageService.isTokenExpired(_storageService.accessToken.toString());
+
   final loadingCircular = ValueNotifier<bool>(false);
 
   final loading = true.obs;
-
-  var currentPageIndex = 0.obs;
-
-  var colorButton1 = false.obs;
-  var colorButton2 = false.obs;
-  var colorButton3 = false.obs;
-  var colorButton4 = false.obs;
-
-  var startCard = false.obs;
 
   @override
   void onInit() {

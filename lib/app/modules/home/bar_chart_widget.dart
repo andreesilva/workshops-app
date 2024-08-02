@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:workshops_app/app/data/models/collaborator.dart';
 
 import 'package:workshops_app/app/data/models/sprice_point.dart';
 
@@ -19,6 +20,8 @@ class _BarChartWidgetState extends State<BarChartWidget> {
   final List<PricePoint> points;
   final String collaborator;
 
+  print(CollaboratorModel collaborator) {}
+
   _BarChartWidgetState({required this.points, required this.collaborator});
 
   @override
@@ -27,14 +30,22 @@ class _BarChartWidgetState extends State<BarChartWidget> {
       aspectRatio: 2,
       child: BarChart(
         BarChartData(
-          barGroups: _chartGroups(),
+          barGroups: [
+            BarChartGroupData(x: 1, barRods: [
+              BarChartRodData(fromY: 0, toY: 8, width: 15, color: Colors.amber)
+            ]),
+          ],
           borderData: FlBorderData(
               border: const Border(bottom: BorderSide(), left: BorderSide())),
-          gridData: FlGridData(show: false),
+          gridData: FlGridData(show: true),
           titlesData: FlTitlesData(
             bottomTitles: AxisTitles(sideTitles: _bottomTitles),
-            leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true)),
+            topTitles: AxisTitles(
+              sideTitles: SideTitles(
+                  showTitles: true,
+                  getTitlesWidget: (value, meta) => Text('Workshop(s)')),
+            ),
             rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
           ),
         ),
@@ -42,37 +53,10 @@ class _BarChartWidgetState extends State<BarChartWidget> {
     );
   }
 
-  List<BarChartGroupData> _chartGroups() {
-    return points
-        .map((point) => BarChartGroupData(
-            x: point.x.toInt(), barRods: [BarChartRodData(toY: point.y)]))
-        .toList();
-  }
-
   SideTitles get _bottomTitles => SideTitles(
         showTitles: true,
         getTitlesWidget: (value, meta) {
-          String text = '';
-          switch (value.toInt()) {
-            case 0:
-              text = 'Jan';
-              break;
-            case 2:
-              text = 'Mar';
-              break;
-            case 4:
-              text = 'May';
-              break;
-            case 6:
-              text = 'Jul';
-              break;
-            case 8:
-              text = 'Sep';
-              break;
-            case 10:
-              text = 'Nov';
-              break;
-          }
+          String text = 'Colobator: $collaborator';
 
           return Text(text);
         },

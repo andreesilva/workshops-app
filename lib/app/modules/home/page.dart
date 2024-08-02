@@ -1,7 +1,6 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:workshops_app/app/core/theme/colors.app.dart';
-import 'package:workshops_app/app/data/models/sprice_point.dart';
 import 'package:workshops_app/app/modules/home/bar_chart_widget.dart';
 import 'package:workshops_app/app/modules/home/controller.dart';
 import 'package:workshops_app/app/routes/routes.dart';
@@ -63,7 +62,6 @@ class HomePage extends GetView<HomeController> {
                           child: Row(
                             children: [
                               Expanded(
-                                /*1*/
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
