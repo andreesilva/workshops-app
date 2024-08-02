@@ -8,12 +8,10 @@ class StorageService extends GetxService {
 
   final _accessToken = RxnString();
 
-  //String? get accessToken => _getStorage.read(GetStorageKey.access_token);
   String? get accessToken => _accessToken.value;
 
   @override
   void onInit() {
-    //_accessToken.value = _getStorage.read(GetStorageKey.access_token);
     _accessToken.value = getStorage.read(GetStorageKey.access_token.toString());
     getStorage.listenKey(GetStorageKey.access_token.toString(),
         (value) => _accessToken.value = value);
@@ -22,8 +20,6 @@ class StorageService extends GetxService {
   }
 
   Future<void> saveToken(String token) {
-    print("SaveToken");
-    print(token);
     return getStorage.write(GetStorageKey.access_token.toString(), token);
   }
 

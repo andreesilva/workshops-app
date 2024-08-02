@@ -13,36 +13,6 @@ class AuthService extends GetxService {
   final user = Rxn<UserModel>();
   bool get isLogged => user.value != null;
   AuthService(this._repository);
-  //bool isInternet = false;
-
-  /*
-  Future<bool> _isInternetConnected() async {
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      result.isNotEmpty && result[0].rawAddress.isNotEmpty;
-      
-        isInternet = true;
-      //return res;
-    } on SocketException catch (_) {
-
-        isInternet = false;
-    }
-     return isInternet;
-  }
-  */
-
-  //Future get isInternet_ =>  _isInternetConnected();
-
-  /*
-  isInternet_  =  _isInternetConnected().then((value) {});
-
-  isInternetConnected().then((value) {
-      
-     
-      if(value == false){
-        Get.toNamed(Routes.splash);
-      }
-      */
 
   @override
   void onInit() async {
@@ -57,8 +27,6 @@ class AuthService extends GetxService {
     var userLoginResponse = await _repository.login(userLoginRequestModel);
     await _storageService.saveToken(userLoginResponse.token);
     await _getUser();
-
-    //print("token: " + userLoginResponse.token);
   }
 
   Future<void> logout() async {
